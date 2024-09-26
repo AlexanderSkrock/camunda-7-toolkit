@@ -11,3 +11,9 @@ feign:
 camundaplatformrest.security.basicAuth:
     username: ""
     password: ""
+
+toolkit:
+    actions:
+        - actionType: ""
+          args:
+            parameterKey: parameterValue
