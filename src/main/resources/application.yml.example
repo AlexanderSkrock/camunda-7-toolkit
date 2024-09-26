@@ -1,0 +1,11 @@
+
+
+logging:
+  level:
+    org.camunda.community.rest.client.api: DEBUG
+
+feign:
+  client:
+    config:
+      default:
+        url: ""
