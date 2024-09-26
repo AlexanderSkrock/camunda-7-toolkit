@@ -64,7 +64,7 @@ public class ToolkitActionsExecutor {
 
         for (int i = 0; i < steps.size(); i++) {
             ExecutionStep currentStep = steps.get(i);
-            log.info("executing step {} of {}:\n\t{}", i, steps.size(), currentStep);
+            log.info("executing step {} of {}:\n\t{}", i + 1, steps.size(), currentStep);
             try {
                 currentStep.execute();
             } catch (ExecutionException e) {
@@ -72,7 +72,7 @@ public class ToolkitActionsExecutor {
                 log.error("aborting execution");
                 break;
             }
-            log.info("finished step {} of {}", i, steps.size());
+            log.info("finished step {} of {}", i + 1, steps.size());
         }
     }
 }

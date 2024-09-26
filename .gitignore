@@ -36,3 +36,6 @@ build/
 
 ### Configuration ###
 application.yml
+
+### Additional files ###
+export
