@@ -21,5 +21,6 @@ package dev.skrock.camunda.actions;
  */
 public enum ToolkitActionType {
 
-    EXPORT;
+    EXPORT,
+    IMPORT_PROCESS_DEFINITIONS;
 }

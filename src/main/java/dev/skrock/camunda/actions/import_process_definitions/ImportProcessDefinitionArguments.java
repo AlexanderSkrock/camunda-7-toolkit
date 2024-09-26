@@ -11,11 +11,13 @@
   noch manipuliert werden.
 */
 
-package dev.skrock.camunda.actions;
+package dev.skrock.camunda.actions.import_process_definitions;
 
-import java.util.Map;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
-import dev.skrock.camunda.actions.errors.ExecutionException;
+import lombok.Value;
+import lombok.With;
 
 /**
  * <Beschreibung>
@@ -23,9 +25,13 @@ import dev.skrock.camunda.actions.errors.ExecutionException;
  *
  * @author askrock
  */
-public interface ToolkitActionExecutor {
+@Value
+public class ImportProcessDefinitionArguments {
 
-    ToolkitActionType getActionType();
+    public static ImportProcessDefinitionArguments defaultArgs() {
+        return new ImportProcessDefinitionArguments(null);
+    }
 
-    void execute(Map<String, Object> args) throws ExecutionException;
+    @With
+    Path input;
 }

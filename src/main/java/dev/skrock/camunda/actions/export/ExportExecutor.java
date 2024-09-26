@@ -13,29 +13,28 @@
 
 package dev.skrock.camunda.actions.export;
 
-import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.StringWriter;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
 import org.camunda.community.rest.client.api.ProcessDefinitionApi;
 import org.camunda.community.rest.client.model.ProcessDefinitionDiagramDto;
 import org.camunda.community.rest.client.model.ProcessDefinitionDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
-import dev.skrock.camunda.actions.ExecutionException;
-import dev.skrock.camunda.actions.ExecutionStep;
+import dev.skrock.camunda.actions.errors.ExecutionException;
 import dev.skrock.camunda.actions.ToolkitActionExecutor;
 import dev.skrock.camunda.actions.ToolkitActionType;
+import dev.skrock.camunda.actions.errors.RestExecutionException;
+import dev.skrock.camunda.actions.model.ProcessDefinitionMeta;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -131,12 +130,28 @@ public class ExportExecutor implements ToolkitActionExecutor {
             if (!definitionPath.toFile().exists()) {
                 definitionPath.toFile().mkdirs();
             }
-            Path bpmnPath = definitionPath.resolve("%s_%s".formatted(currentDefinition.getKey(), currentDefinition.getVersion()));
 
             ResponseEntity<ProcessDefinitionDiagramDto> xmlResponse = processDefinitionApi.getProcessDefinitionBpmn20Xml(currentDefinition.getId());
 
             RestExecutionException.checkResponse(xmlResponse);
 
+            Path metaPath = definitionPath.resolve("%s_%s.json".formatted(currentDefinition.getKey(), currentDefinition.getVersion()));
+            try {
+                ProcessDefinitionMeta meta = ProcessDefinitionMeta.builder()
+                                                                  .processDefinitionKey(currentDefinition.getKey())
+                                                                  .processDefinitionVersion(currentDefinition.getVersion())
+                                                                  .build();
+                String metaString = new ObjectMapper().writeValueAsString(meta);
+                FileUtils.writeStringToFile(metaPath.toFile(), metaString, StandardCharsets.UTF_8);
+            } catch (IOException e) {
+                throw new ExecutionException("""
+                error on writing the meta information:
+                \tProcess Definition Key: %s
+                \tversion: %s
+                """.formatted(currentDefinition.getKey(), currentDefinition.getVersion()), e);
+            }
+
+            Path bpmnPath = definitionPath.resolve("%s_%s.bpmn".formatted(currentDefinition.getKey(), currentDefinition.getVersion()));
             try {
                 FileUtils.writeStringToFile(bpmnPath.toFile(), xmlResponse.getBody().getBpmn20Xml(), StandardCharsets.UTF_8);
             } catch (IOException e) {
@@ -146,7 +161,8 @@ public class ExportExecutor implements ToolkitActionExecutor {
                 \tversion: %s
                 """.formatted(currentDefinition.getKey(), currentDefinition.getVersion()), e);
             }
-            log.info("finished step {} of {}", i + 1, definitions.size());
+
+            log.info("exported definition {} of {}", i + 1, definitions.size());
         }
     }
 }

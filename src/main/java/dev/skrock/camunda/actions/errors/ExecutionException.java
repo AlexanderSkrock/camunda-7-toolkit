@@ -11,7 +11,7 @@
   noch manipuliert werden.
 */
 
-package dev.skrock.camunda.actions;
+package dev.skrock.camunda.actions.errors;
 
 /**
  * <Beschreibung>

@@ -11,11 +11,11 @@
   noch manipuliert werden.
 */
 
-package dev.skrock.camunda.actions;
+package dev.skrock.camunda.actions.model;
 
-import java.util.Map;
-
-import dev.skrock.camunda.actions.errors.ExecutionException;
+import lombok.Builder;
+import lombok.Data;
+import lombok.extern.jackson.Jacksonized;
 
 /**
  * <Beschreibung>
@@ -23,9 +23,11 @@ import dev.skrock.camunda.actions.errors.ExecutionException;
  *
  * @author askrock
  */
-public interface ToolkitActionExecutor {
+@Data
+@Builder
+@Jacksonized
+public class ProcessDefinitionMeta {
 
-    ToolkitActionType getActionType();
-
-    void execute(Map<String, Object> args) throws ExecutionException;
+    private String processDefinitionKey;
+    private Integer processDefinitionVersion;
 }

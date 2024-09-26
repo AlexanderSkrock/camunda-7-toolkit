@@ -14,11 +14,14 @@ camundaplatformrest.security.basicAuth:
 
 toolkit:
     actions:
-        - actionType: "export"
-          args:
-            output: "./export"
-            include:
-              - process-definition
-        - actionType: ""
-          args:
-            parameterKey: parameterValue
+#        - actionType: "export"
+#          args:
+#            output: "./export"
+#            include:
+#              - process-definition
+#       - actionType: "importProcessDefinitions"
+#         args:
+#           input: "./import"
+#        - actionType: ""
+#          args:
+#            parameterKey: parameterValue

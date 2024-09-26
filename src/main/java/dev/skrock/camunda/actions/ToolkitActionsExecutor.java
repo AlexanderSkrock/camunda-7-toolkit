@@ -14,11 +14,11 @@
 package dev.skrock.camunda.actions;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import dev.skrock.camunda.actions.errors.ExecutionException;
 import dev.skrock.camunda.config.ToolkitProperties;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
