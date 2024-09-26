@@ -39,3 +39,5 @@ application.yml
 
 ### Additional files ###
 export
+!**/src/main/**/export/
+!**/src/test/**/export/
