@@ -41,3 +41,6 @@ application.yml
 export
 !**/src/main/**/export/
 !**/src/test/**/export/
+analyze
+!**/src/main/**/analyze/
+!**/src/test/**/analyze/

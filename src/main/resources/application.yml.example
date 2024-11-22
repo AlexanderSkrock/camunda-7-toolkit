@@ -2,11 +2,7 @@ logging:
   level:
     org.camunda.community.rest.client.api: DEBUG
 
-feign:
-  client:
-    config:
-      default:
-        url: ""
+feign.client.config.default.url: ""
 
 camundaplatformrest.security.basicAuth:
     username: ""
@@ -25,3 +21,8 @@ toolkit:
 #        - actionType: ""
 #          args:
 #            parameterKey: parameterValue
+#        - actionType: "analyzeVariableSizes"
+#          args:
+#            output: "./analyze"
+#            minSizeLimit: "1KB"
+#            processInstanceId: "3569263e-9c43-11ef-8d1b-b2321574f7a3"
