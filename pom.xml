@@ -90,13 +90,6 @@
 
     <build>
         <plugins>
-            <!-- The Spring Boot Maven plugin for easy
-                 execution from CLI and packaging -->
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-
             <!--
                 Takes care of synchronizing java
                 dependencies and imports in package.json and
@@ -111,7 +104,6 @@
                     <execution>
                         <goals>
                             <goal>prepare-frontend</goal>
-                            <goal>build-frontend</goal>
                         </goals>
                     </execution>
                 </executions>
@@ -132,14 +124,6 @@
                 <vaadin.productionMode>true</vaadin.productionMode>
             </properties>
 
-
-            <dependencies>
-                <dependency>
-                    <groupId>com.vaadin</groupId>
-                    <artifactId>flow-server-production-mode</artifactId>
-                </dependency>
-            </dependencies>
-
             <build>
                 <plugins>
                     <plugin>
@@ -153,13 +137,6 @@
                                 </goals>
                             </execution>
                         </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.springframework.boot</groupId>
-                        <artifactId>spring-boot-maven-plugin</artifactId>
-                        <configuration>
-                            <jvmArguments>-Dvaadin.productionMode</jvmArguments>
-                        </configuration>
                     </plugin>
                 </plugins>
             </build>
