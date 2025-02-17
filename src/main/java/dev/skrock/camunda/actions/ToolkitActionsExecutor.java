@@ -43,8 +43,7 @@ public class ToolkitActionsExecutor {
         this.actionExecutors = actionExecutors;
     }
 
-    @PostConstruct
-    void executeActions() {
+    public void executeActions() {
         if (toolkitProperties.getActions().isEmpty()) {
             log.warn("no actions configured, skipping execution");
             return;
