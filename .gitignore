@@ -3,6 +3,10 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+### Vaading ###
+node_modules/
+src/main/frontend/generated/
+
 ### IntelliJ IDEA ###
 .idea
 *.iws
