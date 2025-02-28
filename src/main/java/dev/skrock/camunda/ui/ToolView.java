@@ -8,11 +8,12 @@ import com.vaadin.flow.router.Route;
 import dev.skrock.camunda.actions.ToolkitActionsExecutor;
 import org.springframework.beans.factory.annotation.Autowired;
 
-@Route
-public class MainView extends VerticalLayout {
+@Route("/tool")
+public class ToolView extends VerticalLayout {
 
     @Autowired
-    public MainView(ToolkitActionsExecutor executor) {
+    public ToolView(ToolkitActionsExecutor executor) {
+        // TODO split up in separate views with configuration
         add(new Button("Execute", (ComponentEventListener<ClickEvent<Button>>) buttonClickEvent -> executor.executeActions()));
     }
 }
