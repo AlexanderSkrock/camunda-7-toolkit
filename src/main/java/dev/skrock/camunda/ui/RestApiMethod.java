@@ -4,7 +4,7 @@ import org.springframework.http.HttpMethod;
 
 import java.util.List;
 
-public interface RestApiMethod<Result> {
+public interface RestApiMethod {
 
     String name();
 
@@ -14,5 +14,5 @@ public interface RestApiMethod<Result> {
 
     List<? extends RestApiMethodParameter> parameters();
 
-    Result call(Object instance, Object... parameterValues) throws Exception;
+    Object call(Object instance, Object... parameterValues) throws Exception;
 }

@@ -13,10 +13,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-@AllArgsConstructor
 public class SwaggerRestApiMethod implements RestApiMethod {
 
     private final Method method;
+
+    public SwaggerRestApiMethod(Method method) {
+        this.method = method;
+    }
 
     @Override
     public String name() {
