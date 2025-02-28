@@ -6,22 +6,17 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.List;
 
 public class RestEndpointComponent extends VerticalLayout {
 
-    public RestEndpointComponent(Method method, Object instance) {
-        if (!method.isAnnotationPresent(RequestMapping.class)) {
-            throw new IllegalArgumentException("no request mapping found");
-        }
-        if (!method.getDeclaringClass().isInstance(instance)) {
-            throw new IllegalArgumentException("incompatible instance");
-        }
-        RestApiMethod<?> apiMethod = new SwaggerRestApiMethod(method);
+    public void unbind() {
+        removeAll();
+    }
+
+    public void bind(Object instance, RestApiMethod apiMethod) {
+        unbind();
 
         add(new H1(apiMethod.name()));
 
@@ -44,8 +39,8 @@ public class RestEndpointComponent extends VerticalLayout {
             @Override
             public void onComponentEvent(ClickEvent<Button> buttonClickEvent) {
                 try {
-                    method.invoke(instance, paramValues);
-                } catch (IllegalAccessException | InvocationTargetException e) {
+                    apiMethod.call(instance, paramValues);
+                } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
             }
