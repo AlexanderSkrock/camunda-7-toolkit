@@ -7,6 +7,7 @@ import com.vaadin.flow.component.sidenav.SideNav;
 import com.vaadin.flow.component.sidenav.SideNavItem;
 import com.vaadin.flow.router.Layout;
 import com.vaadin.flow.theme.lumo.LumoUtility;
+import dev.skrock.camunda.ui.tools.ToolsView;
 
 @Layout
 public class RootLayout extends AppLayout {
@@ -24,7 +25,7 @@ public class RootLayout extends AppLayout {
     protected SideNav getSideNavigation() {
         SideNav sideNav = new SideNav();
         sideNav.addItem(new SideNavItem("REST", RestApiView.class));
-        sideNav.addItem(new SideNavItem("Tools", ToolView.class));
+        sideNav.addItem(new SideNavItem("Tools", ToolsView.class));
         return sideNav;
     }
 }
