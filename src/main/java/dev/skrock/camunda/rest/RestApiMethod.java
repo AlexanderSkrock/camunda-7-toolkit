@@ -1,4 +1,4 @@
-package dev.skrock.camunda.ui;
+package dev.skrock.camunda.rest;
 
 import org.springframework.http.HttpMethod;
 

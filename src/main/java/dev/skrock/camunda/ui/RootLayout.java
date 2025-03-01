@@ -7,6 +7,7 @@ import com.vaadin.flow.component.sidenav.SideNav;
 import com.vaadin.flow.component.sidenav.SideNavItem;
 import com.vaadin.flow.router.Layout;
 import com.vaadin.flow.theme.lumo.LumoUtility;
+import dev.skrock.camunda.ui.rest.RestApiView;
 import dev.skrock.camunda.ui.tools.ToolsView;
 
 @Layout

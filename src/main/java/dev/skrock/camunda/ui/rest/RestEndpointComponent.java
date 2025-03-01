@@ -1,4 +1,4 @@
-package dev.skrock.camunda.ui;
+package dev.skrock.camunda.ui.rest;
 
 import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.ComponentEventListener;
@@ -6,6 +6,8 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import dev.skrock.camunda.rest.RestApiMethod;
+import dev.skrock.camunda.rest.RestApiMethodParameter;
 
 import java.util.List;
 

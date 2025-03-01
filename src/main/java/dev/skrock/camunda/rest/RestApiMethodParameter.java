@@ -1,4 +1,4 @@
-package dev.skrock.camunda.ui;
+package dev.skrock.camunda.rest;
 
 public interface RestApiMethodParameter {
 
