@@ -1,7 +1,6 @@
-package dev.skrock.camunda.ui;
+package dev.skrock.camunda.rest;
 
 import io.swagger.v3.oas.annotations.Operation;
-import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.bind.annotation.RequestMapping;

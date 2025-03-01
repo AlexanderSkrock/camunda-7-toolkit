@@ -1,10 +1,11 @@
-package dev.skrock.camunda.ui;
+package dev.skrock.camunda.ui.rest;
 
 import com.vaadin.flow.component.AbstractField;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.HasValue;
 import com.vaadin.flow.component.textfield.NumberField;
 import com.vaadin.flow.component.textfield.TextField;
+import dev.skrock.camunda.rest.RestApiMethodParameter;
 
 public class ParameterFormField {
 
