@@ -11,10 +11,10 @@
   noch manipuliert werden.
 */
 
-package dev.skrock.camunda.toolkit.config;
+package dev.skrock.camunda.toolkit.ui.tools.export;
 
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 /**
  * <Beschreibung>
@@ -22,8 +22,9 @@ import org.springframework.context.annotation.Configuration;
  *
  * @author askrock
  */
-@Configuration
-@EnableConfigurationProperties(ToolkitProperties.class)
-public class ToolkitPropertiesConfiguration {
+@Getter
+@AllArgsConstructor
+public enum Includes {
 
+    PROCESS_DEFINITION;
 }

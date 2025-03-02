@@ -11,7 +11,11 @@
   noch manipuliert werden.
 */
 
-package dev.skrock.camunda.toolkit.actions;
+package dev.skrock.camunda.toolkit.ui.tools.export;
+
+import java.util.Set;
+
+import lombok.Data;
 
 /**
  * <Beschreibung>
@@ -19,9 +23,8 @@ package dev.skrock.camunda.toolkit.actions;
  *
  * @author askrock
  */
-public enum ToolkitActionType {
+@Data
+public class ExportArguments {
 
-    EXPORT,
-    IMPORT_PROCESS_DEFINITIONS,
-    ANALYZE_VARIABLE_SIZES;
+    private Set<Includes> includes;
 }
