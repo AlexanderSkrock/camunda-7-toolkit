@@ -38,5 +38,7 @@ public class ExportArgumentsEditor extends FormLayout {
         addFormItem(includesField, "Types");
 
         binder.bind(includesField, ExportArguments::getIncludes, ExportArguments::setIncludes);
+
+        binder.readBean(new ExportArguments());
     }
 }

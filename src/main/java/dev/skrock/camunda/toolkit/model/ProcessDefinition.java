@@ -17,14 +17,7 @@ public class ProcessDefinition {
                 dto.getDescription(),
                 dto.getName(),
                 dto.getVersion(),
-                dto.getResource(),
-                dto.getDeploymentId(),
-                dto.getDiagram(),
-                dto.getSuspended(),
-                dto.getTenantId(),
-                dto.getVersionTag(),
-                dto.getHistoryTimeToLive(),
-                dto.getStartableInTasklist()
+                dto.getVersionTag()
         );
     }
 
@@ -47,26 +40,5 @@ public class ProcessDefinition {
     Integer version;
 
     @With
-    String resource;
-
-    @With
-    String deploymentId;
-
-    @With
-    String diagram;
-
-    @With
-    Boolean suspended;
-
-    @With
-    String tenantId;
-
-    @With
     String versionTag;
-
-    @With
-    Integer historyTimeToLive;
-
-    @With
-    Boolean startableInTasklist;
 }

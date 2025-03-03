@@ -1,4 +1,4 @@
-package dev.skrock.camunda.toolkit.ui.rest;
+package dev.skrock.camunda.toolkit.rest;
 
 import lombok.AllArgsConstructor;
 
