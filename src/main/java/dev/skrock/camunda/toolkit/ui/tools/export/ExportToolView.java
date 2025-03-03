@@ -15,7 +15,6 @@ package dev.skrock.camunda.toolkit.ui.tools.export;
 
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.H2;
-import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.data.binder.ValidationException;
@@ -47,7 +46,11 @@ public class ExportToolView extends VerticalLayout {
         HorizontalLayout header = new HorizontalLayout(title, downloadAllButton);
 
         ProcessDefinitionGrid processDefinitionGrid = new ProcessDefinitionGrid(
-                definition -> new DownloadProcessDefinitionButton(processDefinitionService, definition)
+                definition -> {
+                    DownloadProcessDefinitionButton downloadButton = new DownloadProcessDefinitionButton(processDefinitionService);
+                    downloadButton.setProcessDefinition(definition);
+                    return downloadButton;
+                }
         );
 
         Button exportButton = new Button("Export");
@@ -58,12 +61,12 @@ public class ExportToolView extends VerticalLayout {
 
                 Set<ProcessDefinition> definitions = processDefinitionService.getProcessDefinitions();
                 processDefinitionGrid.setProcessDefinitions(definitions);
-                downloadAllButton.setDefinitions(definitions);
+                downloadAllButton.setProcessDefinitions(definitions);
             } catch (ValidationException e) {
                 // TODO handle validation errors
             } catch (ResponseException e) {
                 processDefinitionGrid.setProcessDefinitions(Collections.emptyList());
-                downloadAllButton.setDefinitions(Collections.emptyList());
+                downloadAllButton.setProcessDefinitions(Collections.emptyList());
                 // TODO handle execution errors
             }
         });
