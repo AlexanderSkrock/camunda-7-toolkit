@@ -15,13 +15,34 @@ import org.springframework.http.MediaType;
 import java.io.ByteArrayInputStream;
 import java.nio.charset.StandardCharsets;
 
-public class DownloadProcessDefinitionButton extends Anchor {
+public class DownloadProcessDefinitionButton extends DownloadButton {
 
-    public DownloadProcessDefinitionButton(ProcessDefinitionService processDefinitionService, ProcessDefinition definition) {
-        Button downloadButton = new Button();
-        downloadButton.setIcon(new Icon(VaadinIcon.DOWNLOAD));
-        downloadButton.addThemeVariants(ButtonVariant.LUMO_ICON, ButtonVariant.LUMO_ERROR, ButtonVariant.LUMO_TERTIARY);
-        add(downloadButton);
+    private final ProcessDefinitionService processDefinitionService;
+
+    private ProcessDefinition definition;
+
+    public DownloadProcessDefinitionButton(ProcessDefinitionService processDefinitionService) {
+        super();
+        this.processDefinitionService = processDefinitionService;
+    }
+
+    public void setProcessDefinition(ProcessDefinition definition) {
+        this.definition = definition;
+        refreshHref();
+    }
+
+    protected void refreshHref() {
+        if (getResource() != null) {
+            setHref(getResource());
+        } else {
+            removeHref();
+        }
+    }
+
+    protected StreamResource getResource() {
+        if (definition == null) {
+            return null;
+        }
 
         String fileName = "%s_%s.bpmn".formatted(definition.getKey(), definition.getVersion());
         StreamResource xmlResource = new StreamResource(fileName, (InputStreamFactory) () -> {
@@ -33,8 +54,6 @@ public class DownloadProcessDefinitionButton extends Anchor {
             }
         });
         xmlResource.setContentType(MediaType.APPLICATION_XML_VALUE);
-        setHref(xmlResource);
-
-        getElement().setAttribute("download", true);
+        return xmlResource;
     }
 }
