@@ -1,6 +1,6 @@
 logging:
   level:
-    org.camunda.community.rest.client.api: DEBUG
+#    org.camunda.community.rest.client.api: DEBUG
 
 feign.client.config.default.url: ""
 
@@ -9,20 +9,8 @@ camundaplatformrest.security.basicAuth:
     password: ""
 
 toolkit:
-    actions:
-#        - actionType: "export"
-#          args:
-#            output: "./export"
-#            include:
-#              - process-definition
-#       - actionType: "importProcessDefinitions"
-#         args:
-#           input: "./import"
-#        - actionType: ""
-#          args:
-#            parameterKey: parameterValue
-#        - actionType: "analyzeVariableSizes"
-#          args:
-#            output: "./analyze"
-#            minSizeLimit: "1KB"
-#            processInstanceId: "3569263e-9c43-11ef-8d1b-b2321574f7a3"
+    engines:
+#        - name: "Example engine"
+#          url: "http://dummy.url/camunda/rest"
+#          username: "username"
+#          password: "password"
