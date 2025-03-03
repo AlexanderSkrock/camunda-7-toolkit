@@ -1,4 +1,4 @@
-package dev.skrock.camunda.toolkit.ui.rest;
+package dev.skrock.camunda.toolkit.rest;
 
 import io.swagger.v3.oas.annotations.Operation;
 import org.apache.commons.lang3.ArrayUtils;

@@ -5,6 +5,8 @@ import com.vaadin.flow.component.HasValue;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
+import dev.skrock.camunda.toolkit.rest.RestApiMethod;
+import dev.skrock.camunda.toolkit.rest.SwaggerRestApiMethod;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.camunda.community.rest.client.api.HistoryApi;
