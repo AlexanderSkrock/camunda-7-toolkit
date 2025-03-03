@@ -1,5 +1,6 @@
 package dev.skrock.camunda.toolkit.ui.components;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.vaadin.flow.server.InputStreamFactory;
 import com.vaadin.flow.server.StreamResource;
 import dev.skrock.camunda.toolkit.api.ProcessDefinitionService;
@@ -14,14 +15,13 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 public class DownloadProcessDefinitionsButton extends DownloadButton {
+
+    private static final ObjectMapper MAPPER = new ObjectMapper();
 
     private final ProcessDefinitionService processDefinitionService;
 
@@ -51,7 +51,7 @@ public class DownloadProcessDefinitionsButton extends DownloadButton {
             return null;
         }
         String resourceName = "processDefinitions_%s.zip".formatted(DateTimeFormatter.ofPattern("yyyyMMdd").format(LocalDate.now()));
-        return new StreamResource(resourceName, (InputStreamFactory) () -> {
+        StreamResource resource = new StreamResource(resourceName, (InputStreamFactory) () -> {
             try (ByteArrayOutputStream zipBytes = new ByteArrayOutputStream()) {
                 try (ZipOutputStream zip = new ZipOutputStream(zipBytes)) {
                     for (ProcessDefinitionModel model : processDefinitionService.getProcessDefinitionModels(definitions)) {
@@ -61,6 +61,12 @@ public class DownloadProcessDefinitionsButton extends DownloadButton {
                         zip.putNextEntry(zipEntry);
                         zip.write(model.getXml().getBytes(StandardCharsets.UTF_8));
                         zip.closeEntry();
+
+                        String metaFileName = "%s_%s.json".formatted(definition.getKey(), definition.getVersion());
+                        ZipEntry metaZipEntry = new ZipEntry(metaFileName);
+                        zip.putNextEntry(metaZipEntry);
+                        zip.write(MAPPER.writerWithDefaultPrettyPrinter().writeValueAsBytes(definition));
+                        zip.closeEntry();
                     }
                 }
                 return new ByteArrayInputStream(zipBytes.toByteArray());
@@ -69,5 +75,7 @@ public class DownloadProcessDefinitionsButton extends DownloadButton {
                 throw new RuntimeException(e);
             }
         });
+        resource.setContentType("application/zip");
+        return resource;
     }
 }
