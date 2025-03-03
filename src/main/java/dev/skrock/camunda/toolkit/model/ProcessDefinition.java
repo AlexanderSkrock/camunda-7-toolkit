@@ -1,12 +1,14 @@
 package dev.skrock.camunda.toolkit.model;
 
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Value;
 import lombok.With;
+import lombok.extern.jackson.Jacksonized;
 import org.camunda.community.rest.client.model.ProcessDefinitionDto;
 
 @Value
-@AllArgsConstructor
+@Builder
+@Jacksonized
 public class ProcessDefinition {
 
     public static ProcessDefinition ofDto(ProcessDefinitionDto dto) {
