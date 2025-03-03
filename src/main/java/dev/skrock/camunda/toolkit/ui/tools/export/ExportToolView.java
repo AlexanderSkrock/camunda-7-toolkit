@@ -14,15 +14,20 @@
 package dev.skrock.camunda.toolkit.ui.tools.export;
 
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.html.H2;
+import com.vaadin.flow.component.orderedlayout.FlexComponent;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.data.binder.ValidationException;
 import com.vaadin.flow.router.Route;
 import dev.skrock.camunda.toolkit.api.ProcessDefinitionService;
 import dev.skrock.camunda.toolkit.model.ProcessDefinition;
 import dev.skrock.camunda.toolkit.ui.components.DownloadProcessDefinitionButton;
+import dev.skrock.camunda.toolkit.ui.components.DownloadProcessDefinitionsButton;
 import dev.skrock.camunda.toolkit.ui.components.ProcessDefinitionGrid;
 import dev.skrock.camunda.toolkit.util.ResponseException;
 
+import java.util.Collections;
 import java.util.Set;
 
 /**
@@ -37,6 +42,10 @@ public class ExportToolView extends VerticalLayout {
     public ExportToolView(ProcessDefinitionService processDefinitionService) {
         ExportArgumentsEditor argumentsEditor = new ExportArgumentsEditor();
 
+        H2 title = new H2("Process definitions");
+        DownloadProcessDefinitionsButton downloadAllButton = new DownloadProcessDefinitionsButton(processDefinitionService);
+        HorizontalLayout header = new HorizontalLayout(title, downloadAllButton);
+
         ProcessDefinitionGrid processDefinitionGrid = new ProcessDefinitionGrid(
                 definition -> new DownloadProcessDefinitionButton(processDefinitionService, definition)
         );
@@ -49,15 +58,16 @@ public class ExportToolView extends VerticalLayout {
 
                 Set<ProcessDefinition> definitions = processDefinitionService.getProcessDefinitions();
                 processDefinitionGrid.setProcessDefinitions(definitions);
+                downloadAllButton.setDefinitions(definitions);
             } catch (ValidationException e) {
                 // TODO handle validation errors
             } catch (ResponseException e) {
+                processDefinitionGrid.setProcessDefinitions(Collections.emptyList());
+                downloadAllButton.setDefinitions(Collections.emptyList());
                 // TODO handle execution errors
             }
         });
 
-        // TODO add download all button
-
-        add(argumentsEditor, exportButton, processDefinitionGrid);
+        add(argumentsEditor, exportButton, header, processDefinitionGrid);
     }
 }
