@@ -28,7 +28,7 @@ public class ImportToolView extends VerticalLayout {
     public ImportToolView(DeploymentService deploymentService) {
         MultiFileMemoryBuffer fileBuffer = new MultiFileMemoryBuffer();
         Upload uploadField = new Upload(fileBuffer);
-        uploadField.setAcceptedFileTypes("application/zip");
+        uploadField.setAcceptedFileTypes("application/zip", ".zip");
         uploadField.setMaxFiles(1);
 
         Button importButton = new Button("Import");
