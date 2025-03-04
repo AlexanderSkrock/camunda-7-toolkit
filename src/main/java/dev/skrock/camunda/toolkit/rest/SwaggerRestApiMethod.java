@@ -23,7 +23,7 @@ public class SwaggerRestApiMethod implements RestApiMethod {
     @Override
     public String name() {
         return Optional.ofNullable(method.getAnnotation(Operation.class))
-                .map(Operation::summary)
+                .map(Operation::operationId)
                 .orElseGet(method::getName);
     }
 
@@ -49,6 +49,11 @@ public class SwaggerRestApiMethod implements RestApiMethod {
         return Arrays.stream(method.getParameters())
                 .map(SwaggerRestApiMethodParameter::new)
                 .toList();
+    }
+
+    @Override
+    public Class<?> declaringType() {
+        return method.getDeclaringClass();
     }
 
     @Override
