@@ -1,16 +1,14 @@
 package dev.skrock.camunda.toolkit.ui.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.vaadin.flow.component.AbstractField;
-import com.vaadin.flow.component.ClickEvent;
-import com.vaadin.flow.component.ComponentEventListener;
-import com.vaadin.flow.component.HasValue;
+import com.vaadin.flow.component.*;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 import de.f0rce.ace.AceEditor;
 import de.f0rce.ace.enums.AceMode;
+import de.f0rce.ace.enums.AceTheme;
 import dev.skrock.camunda.toolkit.api.CamundaRestApiProvider;
 import dev.skrock.camunda.toolkit.rest.RestApiMethod;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,11 +33,13 @@ public class RestApiView extends VerticalLayout {
             }
         });
         comboBox.setItemLabelGenerator(RestApiMethod::name);
+        comboBox.setWidth(40, Unit.EM);
 
         List<RestApiMethod> apiMethods = apiProvider.getApiMethods().values().stream().flatMap(Collection::stream).toList();
         comboBox.setItems(apiMethods);
 
         AceEditor resultPane = new AceEditor();
+        resultPane.setTheme(AceTheme.github);
         resultPane.setMode(AceMode.json);
 
         Button executeButton = new Button("Execute", new ComponentEventListener<ClickEvent<Button>>() {
