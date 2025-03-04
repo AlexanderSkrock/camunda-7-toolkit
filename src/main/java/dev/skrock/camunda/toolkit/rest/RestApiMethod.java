@@ -14,5 +14,7 @@ public interface RestApiMethod {
 
     List<? extends RestApiMethodParameter> parameters();
 
+    Class<?> declaringType();
+
     Object call(Object instance, Object... parameterValues) throws Exception;
 }
