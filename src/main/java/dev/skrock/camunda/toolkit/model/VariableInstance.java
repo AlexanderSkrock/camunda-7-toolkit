@@ -1,7 +1,6 @@
 package dev.skrock.camunda.toolkit.model;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Value;
 import lombok.With;
 import org.camunda.community.rest.client.model.HistoricVariableInstanceDto;
@@ -11,6 +10,7 @@ import org.springframework.util.unit.DataSize;
 import java.nio.charset.StandardCharsets;
 
 @Value
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class VariableInstance {
 
     public static VariableInstance ofDto(VariableInstanceDto dto) {
@@ -30,6 +30,7 @@ public class VariableInstance {
     }
 
     @With
+    @EqualsAndHashCode.Include
     String variableInstanceId;
 
     @With

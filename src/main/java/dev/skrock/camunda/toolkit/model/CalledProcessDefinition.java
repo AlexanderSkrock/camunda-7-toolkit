@@ -1,30 +1,32 @@
 package dev.skrock.camunda.toolkit.model;
 
+import java.util.List;
+
+import org.camunda.community.rest.client.model.CalledProcessDefinitionDto;
+
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Value;
 import lombok.With;
-import lombok.experimental.NonFinal;
 import lombok.extern.jackson.Jacksonized;
 
-import org.camunda.community.rest.client.model.ProcessDefinitionDto;
-
 @Value
-@NonFinal
 @Builder
 @Jacksonized
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class ProcessDefinition {
+@EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
+public class CalledProcessDefinition extends ProcessDefinition {
 
-    public static ProcessDefinition ofDto(ProcessDefinitionDto dto) {
-        return new ProcessDefinition(
+    public static CalledProcessDefinition ofDto(CalledProcessDefinitionDto dto) {
+        return new CalledProcessDefinition(
                 dto.getId(),
                 dto.getKey(),
                 dto.getCategory(),
                 dto.getDescription(),
                 dto.getName(),
                 dto.getVersion(),
-                dto.getVersionTag()
+                dto.getVersionTag(),
+                dto.getCalledFromActivityIds(),
+                dto.getCallingProcessDefinitionId()
         );
     }
 
@@ -49,4 +51,11 @@ public class ProcessDefinition {
 
     @With
     String versionTag;
+
+    @With
+    List<String> calledFromActivityIds;
+
+    @With
+    @EqualsAndHashCode.Include
+    String callingProcessDefinitionId;
 }
