@@ -1,16 +1,21 @@
 package dev.skrock.camunda.toolkit.api;
 
+import dev.skrock.camunda.toolkit.model.CalledProcessDefinition;
 import dev.skrock.camunda.toolkit.model.ProcessDefinition;
 import dev.skrock.camunda.toolkit.model.ProcessDefinitionModel;
 import dev.skrock.camunda.toolkit.util.ResponseException;
 import dev.skrock.camunda.toolkit.util.ResponseUtil;
 import org.camunda.community.rest.client.api.ProcessDefinitionApi;
+import org.camunda.community.rest.client.model.CalledProcessDefinitionDto;
 import org.camunda.community.rest.client.model.DeploymentWithDefinitionsDto;
 import org.camunda.community.rest.client.model.ProcessDefinitionDiagramDto;
 import org.camunda.community.rest.client.model.ProcessDefinitionDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -83,5 +88,24 @@ public class ProcessDefinitionService {
             models.add(getProcessDefinitionModel(definition));
         }
         return models;
+    }
+
+    public MultiValueMap<ProcessDefinition, CalledProcessDefinition> getStaticDependencies() throws ResponseException {
+        MultiValueMap<ProcessDefinition, CalledProcessDefinition> definitionToDependencies = new LinkedMultiValueMap<>();
+
+        for (ProcessDefinition processDefinition : getProcessDefinitions()) {
+            ResponseEntity<List<CalledProcessDefinitionDto>> staticDependenciesResponse = processDefinitionApi.getStaticCalledProcessDefinitions(processDefinition.getId());
+            ResponseUtil.checkResponse(staticDependenciesResponse);
+
+            if (!CollectionUtils.isEmpty(staticDependenciesResponse.getBody())) {
+                List<CalledProcessDefinition> staticDependencies = staticDependenciesResponse.getBody()
+                        .stream()
+                        .map(CalledProcessDefinition::ofDto)
+                        .toList();
+                definitionToDependencies.addAll(processDefinition, staticDependencies);
+            }
+        }
+
+        return definitionToDependencies;
     }
 }
