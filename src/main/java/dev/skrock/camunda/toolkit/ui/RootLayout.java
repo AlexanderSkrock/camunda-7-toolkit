@@ -57,19 +57,34 @@ public class RootLayout extends AppLayout {
 
     protected Component getSideNavigation() {
         SideNav restNav = new SideNav("REST");
+        restNav.setCollapsible(true);
         restNav.addItem(
-                new SideNavItem("Browser", RestApiView.class, VaadinIcon.BROWSER.create())
+                new SideNavItem("Browser", RestApiView.class, VaadinIcon.BROWSER.create()),
+                new SideNavItem("Batch (coming soon)")
         );
 
-        SideNav toolsNav = new SideNav("Tools");
-        toolsNav.addItem(
+        SideNav analyzeModelsNav = new SideNav("Analyze models");
+        analyzeModelsNav.setCollapsible(true);
+        analyzeModelsNav.addItem(
+                new SideNavItem("Dependencies", AnalyzeDependenciesToolView.class, VaadinIcon.CHART.create()),
+                new SideNavItem("SAP (coming soon)"),
+                new SideNavItem("Databases (coming soon)")
+        );
+
+        SideNav analyzeProcessesNav = new SideNav("Analyze processes");
+        analyzeProcessesNav.setCollapsible(true);
+        analyzeProcessesNav.addItem(
+                new SideNavItem("Variables", AnalyzeVariablesToolView.class, VaadinIcon.CHART.create())
+        );
+
+        SideNav dataTransferNav = new SideNav("Data transfer");
+        dataTransferNav.setCollapsible(true);
+        dataTransferNav.addItem(
                 new SideNavItem("Export", ExportToolView.class, VaadinIcon.DOWNLOAD.create()),
-                new SideNavItem("Import", ImportToolView.class, VaadinIcon.UPLOAD.create()),
-                new SideNavItem("Analyze dependencies", AnalyzeDependenciesToolView.class, VaadinIcon.CHART.create()),
-                new SideNavItem("Analyze variables", AnalyzeVariablesToolView.class, VaadinIcon.CHART.create())
+                new SideNavItem("Import", ImportToolView.class, VaadinIcon.UPLOAD.create())
         );
 
-        VerticalLayout navWrapper = new VerticalLayout(restNav, toolsNav);
+        VerticalLayout navWrapper = new VerticalLayout(restNav, analyzeModelsNav, analyzeProcessesNav, dataTransferNav);
         navWrapper.setSpacing(true);
 
         Scroller scroller = new Scroller(navWrapper);
