@@ -1,14 +1,10 @@
-package dev.skrock.camunda.toolkit.ui.components;
+package dev.skrock.camunda.toolkit.ui.tools.export;
 
-import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.button.ButtonVariant;
-import com.vaadin.flow.component.html.Anchor;
-import com.vaadin.flow.component.icon.Icon;
-import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.server.InputStreamFactory;
 import com.vaadin.flow.server.StreamResource;
 import dev.skrock.camunda.toolkit.api.ProcessDefinitionService;
 import dev.skrock.camunda.toolkit.model.ProcessDefinition;
+import dev.skrock.camunda.toolkit.ui.components.DownloadButton;
 import dev.skrock.camunda.toolkit.util.ResponseException;
 import org.springframework.http.MediaType;
 
