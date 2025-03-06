@@ -1,52 +1,37 @@
 package dev.skrock.camunda.toolkit.model;
 
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Value;
-import lombok.With;
-import lombok.experimental.NonFinal;
-import lombok.extern.jackson.Jacksonized;
+import lombok.*;
 
 import org.camunda.community.rest.client.model.ProcessDefinitionDto;
 
-@Value
-@NonFinal
-@Builder
-@Jacksonized
+@Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class ProcessDefinition {
 
     public static ProcessDefinition ofDto(ProcessDefinitionDto dto) {
-        return new ProcessDefinition(
-                dto.getId(),
-                dto.getKey(),
-                dto.getCategory(),
-                dto.getDescription(),
-                dto.getName(),
-                dto.getVersion(),
-                dto.getVersionTag()
-        );
+        ProcessDefinition definition = new ProcessDefinition();
+        definition.setId(dto.getId());
+        definition.setKey(dto.getKey());
+        definition.setCategory(dto.getCategory());
+        definition.setDescription(dto.getDescription());
+        definition.setName(dto.getName());
+        definition.setVersion(dto.getVersion());
+        definition.setVersionTag(dto.getVersionTag());
+        return definition;
     }
 
-    @With
     @EqualsAndHashCode.Include
-    String id;
+    private String id;
 
-    @With
-    String key;
+    private String key;
 
-    @With
-    String category;
+    private String category;
 
-    @With
-    String description;
+    private String description;
 
-    @With
-    String name;
+    private String name;
 
-    @With
-    Integer version;
+    private Integer version;
 
-    @With
-    String versionTag;
+    private String versionTag;
 }

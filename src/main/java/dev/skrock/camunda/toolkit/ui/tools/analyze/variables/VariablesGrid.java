@@ -1,4 +1,4 @@
-package dev.skrock.camunda.toolkit.ui.components;
+package dev.skrock.camunda.toolkit.ui.tools.analyze.variables;
 
 import com.vaadin.flow.component.grid.Grid;
 import dev.skrock.camunda.toolkit.model.VariableInstance;
