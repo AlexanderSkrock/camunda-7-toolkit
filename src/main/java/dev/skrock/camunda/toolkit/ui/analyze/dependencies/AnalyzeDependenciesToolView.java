@@ -11,7 +11,7 @@
   noch manipuliert werden.
 */
 
-package dev.skrock.camunda.toolkit.ui.tools.analyze.dependencies;
+package dev.skrock.camunda.toolkit.ui.analyze.dependencies;
 
 import com.vaadin.flow.data.binder.ValidationException;
 import dev.skrock.camunda.toolkit.model.CalledProcessDefinition;

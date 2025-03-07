@@ -11,7 +11,7 @@
   noch manipuliert werden.
 */
 
-package dev.skrock.camunda.toolkit.ui.tools.analyze.variables;
+package dev.skrock.camunda.toolkit.ui.analyze.variables;
 
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.textfield.TextField;

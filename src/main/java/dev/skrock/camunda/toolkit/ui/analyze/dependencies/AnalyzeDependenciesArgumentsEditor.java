@@ -11,17 +11,13 @@
   noch manipuliert werden.
 */
 
-package dev.skrock.camunda.toolkit.ui.tools.analyze.dependencies;
+package dev.skrock.camunda.toolkit.ui.analyze.dependencies;
 
 import com.vaadin.flow.component.checkbox.Checkbox;
-import com.vaadin.flow.component.checkbox.CheckboxGroup;
-import com.vaadin.flow.component.checkbox.CheckboxGroupVariant;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.binder.Binder;
-import dev.skrock.camunda.toolkit.ui.tools.export.ExportArguments;
-import dev.skrock.camunda.toolkit.ui.tools.export.Includes;
 import lombok.Getter;
 
 /**

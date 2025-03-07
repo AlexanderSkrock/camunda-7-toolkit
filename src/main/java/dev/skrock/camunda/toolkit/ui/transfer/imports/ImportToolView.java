@@ -1,4 +1,4 @@
-package dev.skrock.camunda.toolkit.ui.tools.imports;
+package dev.skrock.camunda.toolkit.ui.transfer.imports;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.vaadin.flow.component.button.Button;

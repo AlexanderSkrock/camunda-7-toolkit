@@ -11,10 +11,11 @@
   noch manipuliert werden.
 */
 
-package dev.skrock.camunda.toolkit.ui.tools.export;
+package dev.skrock.camunda.toolkit.ui.transfer.export;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import java.util.Set;
+
+import lombok.Data;
 
 /**
  * <Beschreibung>
@@ -22,9 +23,8 @@ import lombok.Getter;
  *
  * @author askrock
  */
-@Getter
-@AllArgsConstructor
-public enum Includes {
+@Data
+public class ExportArguments {
 
-    PROCESS_DEFINITION;
+    private Set<Includes> includes;
 }

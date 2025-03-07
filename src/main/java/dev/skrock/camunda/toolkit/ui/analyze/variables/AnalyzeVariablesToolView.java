@@ -1,4 +1,4 @@
-package dev.skrock.camunda.toolkit.ui.tools.analyze.variables;
+package dev.skrock.camunda.toolkit.ui.analyze.variables;
 
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;

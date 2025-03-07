@@ -11,11 +11,10 @@
   noch manipuliert werden.
 */
 
-package dev.skrock.camunda.toolkit.ui.tools.export;
-
-import java.util.Set;
+package dev.skrock.camunda.toolkit.ui.analyze.variables;
 
 import lombok.Data;
+import org.springframework.util.unit.DataSize;
 
 /**
  * <Beschreibung>
@@ -24,7 +23,9 @@ import lombok.Data;
  * @author askrock
  */
 @Data
-public class ExportArguments {
+public class AnalyzeVariablesArguments {
 
-    private Set<Includes> includes;
+    private DataSize minSize = DataSize.ofBytes(0);
+
+    private String processInstanceId;
 }

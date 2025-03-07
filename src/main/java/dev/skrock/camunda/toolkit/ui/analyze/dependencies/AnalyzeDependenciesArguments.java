@@ -1,4 +1,4 @@
-package dev.skrock.camunda.toolkit.ui.tools.analyze.dependencies;
+package dev.skrock.camunda.toolkit.ui.analyze.dependencies;
 
 import lombok.Data;
 

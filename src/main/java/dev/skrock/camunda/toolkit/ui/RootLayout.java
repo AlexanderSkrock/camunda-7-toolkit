@@ -17,10 +17,10 @@ import dev.skrock.camunda.toolkit.config.ToolkitProperties;
 import dev.skrock.camunda.toolkit.engine.ConfigurableCamundaEngineProvider;
 import dev.skrock.camunda.toolkit.engine.RemoteCamundaEngine;
 import dev.skrock.camunda.toolkit.ui.rest.RestApiView;
-import dev.skrock.camunda.toolkit.ui.tools.analyze.dependencies.AnalyzeDependenciesToolView;
-import dev.skrock.camunda.toolkit.ui.tools.analyze.variables.AnalyzeVariablesToolView;
-import dev.skrock.camunda.toolkit.ui.tools.export.ExportToolView;
-import dev.skrock.camunda.toolkit.ui.tools.imports.ImportToolView;
+import dev.skrock.camunda.toolkit.ui.analyze.dependencies.AnalyzeDependenciesToolView;
+import dev.skrock.camunda.toolkit.ui.analyze.variables.AnalyzeVariablesToolView;
+import dev.skrock.camunda.toolkit.ui.transfer.export.ExportToolView;
+import dev.skrock.camunda.toolkit.ui.transfer.imports.ImportToolView;
 
 import java.util.List;
 
