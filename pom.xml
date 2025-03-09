@@ -13,7 +13,8 @@
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <camunda-platform-7-rest-client-spring-boot.version>7.21.0</camunda-platform-7-rest-client-spring-boot.version>
+        <camunda-model.version>7.22.0</camunda-model.version>
+        <camunda-platform-7-rest-client-spring-boot.version>7.22.0</camunda-platform-7-rest-client-spring-boot.version>
         <jackson.version>2.17.2</jackson.version>
         <lombok.version>1.18.34</lombok.version>
         <spring-boot.version>3.4.3</spring-boot.version>
@@ -83,6 +84,13 @@
         <dependency>
             <groupId>io.github.openfeign</groupId>
             <artifactId>feign-httpclient</artifactId>
+        </dependency>
+
+        <!-- Camunda Models -->
+        <dependency>
+            <groupId>org.camunda.bpm.model</groupId>
+            <artifactId>camunda-bpmn-model</artifactId>
+            <version>${camunda-model.version}</version>
         </dependency>
 
         <!-- Data binding -->
