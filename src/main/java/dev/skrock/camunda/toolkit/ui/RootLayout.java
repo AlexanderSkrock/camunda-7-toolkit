@@ -16,6 +16,7 @@ import com.vaadin.flow.theme.lumo.LumoUtility;
 import dev.skrock.camunda.toolkit.config.ToolkitProperties;
 import dev.skrock.camunda.toolkit.engine.ConfigurableCamundaEngineProvider;
 import dev.skrock.camunda.toolkit.engine.RemoteCamundaEngine;
+import dev.skrock.camunda.toolkit.ui.analyze.db.AnalyzeDbToolView;
 import dev.skrock.camunda.toolkit.ui.analyze.sap.AnalyzeSapToolView;
 import dev.skrock.camunda.toolkit.ui.rest.RestApiView;
 import dev.skrock.camunda.toolkit.ui.analyze.dependencies.AnalyzeDependenciesToolView;
@@ -70,7 +71,8 @@ public class RootLayout extends AppLayout {
                 new SideNavItem("Dependencies", AnalyzeDependenciesToolView.class, VaadinIcon.CHART.create()),
                 // TODO protect this route with a data experts role
                 new SideNavItem("SAP", AnalyzeSapToolView.class, VaadinIcon.CHART.create()),
-                new SideNavItem("Databases (coming soon)")
+                // TODO protect this route with a data experts role
+                new SideNavItem("Databases", AnalyzeDbToolView.class, VaadinIcon.CHART.create())
         );
 
         SideNav analyzeProcessesNav = new SideNav("Analyze processes");

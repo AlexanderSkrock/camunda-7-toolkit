@@ -27,8 +27,8 @@ public class SapTableGrid extends Grid<CalledSapTable> {
 
     public SapTableGrid() {
         super(CalledSapTable.class, false);
-        addColumn(CalledSapFunction::getSystem).setHeader("System").setSortable(true);
-        addColumn(CalledSapTable::getTable).setHeader("Table").setSortable(true);
+        addColumn(CalledSapFunction::getSystem).setHeader("System").setAutoWidth(true).setFlexGrow(0).setSortable(true);
+        addColumn(CalledSapTable::getTable).setHeader("Table").setAutoWidth(true).setFlexGrow(0).setSortable(true);
         addColumn(CalledSapTable::getOptions).setHeader("Options");
         addColumn(CalledSapTable::getInputs).setHeader("Inputs");
     }

@@ -33,6 +33,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
+import dev.skrock.camunda.toolkit.model.CalledDbQuery;
 import dev.skrock.camunda.toolkit.model.CalledSapFunction;
 import dev.skrock.camunda.toolkit.model.CalledSapTable;
 
@@ -68,6 +69,22 @@ public class ModelService {
         return sapFunctionToActivities.keySet();
     }
 
+    public Set<CalledDbQuery> analyzeDbCalls(BpmnModelInstance modelInstance) {
+        MultiValueMap<CalledDbQuery, String> dbCallToActivities = new LinkedMultiValueMap<>();
+
+        modelInstance.getModelElementsByType(ServiceTask.class).stream()
+                .filter(serviceTask -> "${dbDelegate}".equals(serviceTask.getCamundaDelegateExpression()))
+                .forEach(serviceTask -> {
+                    CalledDbQuery dbQuery = createDbQuery(serviceTask);
+                    dbCallToActivities.add(dbQuery, serviceTask.getId());
+                });
+
+        dbCallToActivities.forEach((dbCall, activities) -> {
+            dbCall.setCalledFromActivityIds(new HashSet<>(activities));
+        });
+        return dbCallToActivities.keySet();
+    }
+
     protected CalledSapFunction createSapFunction(ServiceTask serviceTask) {
         Map<String, CamundaField> fields = serviceTask.getExtensionElements().getElementsQuery().filterByType(CamundaField.class).list().stream().collect(Collectors.toMap(CamundaField::getCamundaName, Function.identity()));
         String systemName = fields.get("sapId").getCamundaExpressionChild().getTextContent();
@@ -101,5 +118,18 @@ public class ModelService {
         }
 
         throw new IllegalArgumentException("unsupported call activity: %s".formatted(callActivity.getCalledElement()));
+    }
+
+    protected CalledDbQuery createDbQuery(ServiceTask serviceTask) {
+        Map<String, CamundaField> fields = serviceTask.getExtensionElements().getElementsQuery().filterByType(CamundaField.class).list().stream().collect(Collectors.toMap(CamundaField::getCamundaName, Function.identity()));
+        String systemName = fields.get("dbId").getCamundaExpressionChild().getTextContent();
+        String sql = fields.get("sql").getCamundaString().getTextContent();
+
+        CamundaInputOutput inOut = serviceTask.getExtensionElements().getElementsQuery().filterByType(CamundaInputOutput.class).singleResult();
+        Map<String, CamundaInputParameter> inputs = inOut.getCamundaInputParameters().stream().collect(Collectors.toMap(CamundaInputParameter::getCamundaName, Function.identity()));
+        Map<String, String> inputValues = new HashMap<>();
+        inputs.forEach((key, inputParameter) -> inputValues.put(key, inputParameter.getTextContent()));
+
+        return new CalledDbQuery(null, Set.of(serviceTask.getId()), systemName, sql, inputValues);
     }
 }

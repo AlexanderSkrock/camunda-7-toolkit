@@ -11,10 +11,10 @@
   noch manipuliert werden.
 */
 
-package dev.skrock.camunda.toolkit.ui.analyze.sap;
+package dev.skrock.camunda.toolkit.ui.analyze.db;
 
 import com.vaadin.flow.component.grid.Grid;
-import dev.skrock.camunda.toolkit.model.CalledSapFunction;
+import dev.skrock.camunda.toolkit.model.CalledDbQuery;
 
 /**
  * <Beschreibung>
@@ -22,12 +22,12 @@ import dev.skrock.camunda.toolkit.model.CalledSapFunction;
  *
  * @author askrock
  */
-public class SapFunctionGrid extends Grid<CalledSapFunction> {
+public class DbQueryGrid extends Grid<CalledDbQuery> {
 
-    public SapFunctionGrid() {
-        super(CalledSapFunction.class, false);
-        addColumn(CalledSapFunction::getSystem).setHeader("System").setAutoWidth(true).setFlexGrow(0).setSortable(true);
-        addColumn(CalledSapFunction::getFunctionName).setHeader("Function").setAutoWidth(true).setFlexGrow(0).setSortable(true);
-        addColumn(CalledSapFunction::getInputs).setHeader("Inputs");
+    public DbQueryGrid() {
+        super(CalledDbQuery.class, false);
+        addColumn(CalledDbQuery::getSystem).setHeader("System").setAutoWidth(true).setFlexGrow(0).setSortable(true);
+        addColumn(CalledDbQuery::getSql).setHeader("SQL").setSortable(true);
+        addColumn(CalledDbQuery::getInputs).setHeader("Inputs");
     }
 }
