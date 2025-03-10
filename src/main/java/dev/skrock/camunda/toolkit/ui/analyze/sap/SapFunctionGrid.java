@@ -26,8 +26,8 @@ public class SapFunctionGrid extends Grid<CalledSapFunction> {
 
     public SapFunctionGrid() {
         super(CalledSapFunction.class, false);
-        addColumn(CalledSapFunction::getSystem).setHeader("System");
-        addColumn(CalledSapFunction::getFunctionName).setHeader("Function");
+        addColumn(CalledSapFunction::getSystem).setHeader("System").setSortable(true);
+        addColumn(CalledSapFunction::getFunctionName).setHeader("Function").setSortable(true);
         addColumn(CalledSapFunction::getInputs).setHeader("Inputs");
     }
 }
