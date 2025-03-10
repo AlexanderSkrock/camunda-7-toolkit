@@ -63,6 +63,8 @@ public class ModelService {
                     sapFunctionToActivities.add(sapFunction, callActivity.getId());
                 });
 
+        // TODO add support for sap calls inside of scripts
+
         sapFunctionToActivities.forEach((sapFunction, activities) -> {
             sapFunction.setCalledFromActivityIds(new HashSet<>(activities));
         });
@@ -78,6 +80,8 @@ public class ModelService {
                     CalledDbQuery dbQuery = createDbQuery(serviceTask);
                     dbCallToActivities.add(dbQuery, serviceTask.getId());
                 });
+
+        // TODO add support for db calls inside of scripts
 
         dbCallToActivities.forEach((dbCall, activities) -> {
             dbCall.setCalledFromActivityIds(new HashSet<>(activities));
