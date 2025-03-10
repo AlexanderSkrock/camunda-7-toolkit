@@ -83,6 +83,7 @@ public class ProcessDefinitionService {
     }
 
     public ProcessDefinitionModel getProcessDefinitionModel(ProcessDefinition definition) throws ResponseException {
+        // TODO implement a (limited) caching mechanism to reduce load of the remote camunda engine
         ResponseEntity<ProcessDefinitionDiagramDto> diagramResponse = processDefinitionApi.getProcessDefinitionBpmn20Xml(definition.getId());
         ResponseUtil.checkResponse(diagramResponse);
 
@@ -106,6 +107,7 @@ public class ProcessDefinitionService {
     }
 
     protected Set<CalledProcessDefinition> getOutgoingReferences(ProcessDefinition definition, MultiValueMap<String, CalledProcessDefinition> cache) throws ResponseException {
+        // TODO implement "global" serverside caching of process definition id to references
         if (!cache.containsKey(definition.getId())) {
             ResponseEntity<List<CalledProcessDefinitionDto>> staticDependenciesResponse = processDefinitionApi.getStaticCalledProcessDefinitions(definition.getId());
             ResponseUtil.checkResponse(staticDependenciesResponse);
