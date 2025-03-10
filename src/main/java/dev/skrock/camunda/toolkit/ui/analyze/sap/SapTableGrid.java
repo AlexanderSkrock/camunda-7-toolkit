@@ -13,8 +13,6 @@
 
 package dev.skrock.camunda.toolkit.ui.analyze.sap;
 
-import java.util.Collection;
-
 import com.vaadin.flow.component.grid.Grid;
 import dev.skrock.camunda.toolkit.model.CalledSapFunction;
 import dev.skrock.camunda.toolkit.model.CalledSapTable;
@@ -33,9 +31,5 @@ public class SapTableGrid extends Grid<CalledSapTable> {
         addColumn(CalledSapTable::getTable).setHeader("Table");
         addColumn(CalledSapTable::getOptions).setHeader("Options");
         addColumn(CalledSapTable::getInputs).setHeader("Inputs");
-    }
-
-    public void setTables(Collection<CalledSapTable> tables) {
-        setItems(tables);
     }
 }

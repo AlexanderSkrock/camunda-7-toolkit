@@ -24,6 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.tabs.TabSheet;
 import com.vaadin.flow.data.binder.ValidationException;
 import com.vaadin.flow.router.Route;
 import dev.skrock.camunda.toolkit.api.ModelService;
@@ -65,14 +66,14 @@ public class AnalyzeSapToolView extends VerticalLayout {
                         .stream()
                         .filter(Predicate.not(CalledSapTable.class::isInstance))
                         .toList();
-                sapFunctionGrid.setFunctions(nonTableFunctions);
+                sapFunctionGrid.setItems(nonTableFunctions);
 
                 Collection<CalledSapTable> tableFunctions = functions
                         .stream()
                         .filter(CalledSapTable.class::isInstance)
                         .map(CalledSapTable.class::cast)
                         .toList();
-                sapTableGrid.setTables(tableFunctions);
+                sapTableGrid.setItems(tableFunctions);
             } catch (ValidationException e) {
                 // TODO handle execution errors
             } catch (ResponseException e) {
@@ -80,6 +81,11 @@ public class AnalyzeSapToolView extends VerticalLayout {
             }
         });
 
-        add(argumentsEditor, analyzeButton, sapFunctionGrid, sapTableGrid);
+        TabSheet resultTabs = new TabSheet();
+        resultTabs.setWidthFull();
+        resultTabs.add("Functions", sapFunctionGrid);
+        resultTabs.add("Tables", sapTableGrid);
+
+        add(argumentsEditor, analyzeButton, resultTabs);
     }
 }
