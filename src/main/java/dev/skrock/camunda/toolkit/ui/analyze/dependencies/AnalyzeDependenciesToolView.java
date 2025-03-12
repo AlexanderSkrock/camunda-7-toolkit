@@ -22,7 +22,9 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 import dev.skrock.camunda.toolkit.api.ProcessDefinitionService;
+import dev.skrock.camunda.toolkit.ui.Roles;
 import dev.skrock.camunda.toolkit.util.ResponseException;
+import jakarta.annotation.security.RolesAllowed;
 
 import java.util.Set;
 
@@ -33,6 +35,7 @@ import java.util.Set;
  * @author askrock
  */
 @Route("/tools/analyze/dependencies")
+@RolesAllowed(Roles.ANALYZE_ROLE)
 public class AnalyzeDependenciesToolView extends VerticalLayout {
 
     @Autowired

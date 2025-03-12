@@ -33,7 +33,9 @@ import dev.skrock.camunda.toolkit.model.CalledSapFunction;
 import dev.skrock.camunda.toolkit.model.CalledSapTable;
 import dev.skrock.camunda.toolkit.model.ProcessDefinition;
 import dev.skrock.camunda.toolkit.model.ProcessDefinitionModel;
+import dev.skrock.camunda.toolkit.ui.Roles;
 import dev.skrock.camunda.toolkit.util.ResponseException;
+import jakarta.annotation.security.RolesAllowed;
 
 /**
  * <Beschreibung>
@@ -42,6 +44,7 @@ import dev.skrock.camunda.toolkit.util.ResponseException;
  * @author askrock
  */
 @Route("/tools/analyze/sap")
+@RolesAllowed(Roles.ANALYZE_ROLE)
 public class AnalyzeSapToolView extends VerticalLayout {
 
     @Autowired

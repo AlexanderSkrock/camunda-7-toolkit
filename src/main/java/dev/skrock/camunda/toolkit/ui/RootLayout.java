@@ -3,6 +3,7 @@ package dev.skrock.camunda.toolkit.ui;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
@@ -12,6 +13,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.sidenav.SideNav;
 import com.vaadin.flow.component.sidenav.SideNavItem;
 import com.vaadin.flow.router.Layout;
+import com.vaadin.flow.spring.security.AuthenticationContext;
 import com.vaadin.flow.theme.lumo.LumoUtility;
 import dev.skrock.camunda.toolkit.config.ToolkitProperties;
 import dev.skrock.camunda.toolkit.engine.ConfigurableCamundaEngineProvider;
@@ -23,24 +25,26 @@ import dev.skrock.camunda.toolkit.ui.analyze.dependencies.AnalyzeDependenciesToo
 import dev.skrock.camunda.toolkit.ui.analyze.variables.AnalyzeVariablesToolView;
 import dev.skrock.camunda.toolkit.ui.transfer.export.ExportToolView;
 import dev.skrock.camunda.toolkit.ui.transfer.imports.ImportToolView;
+import jakarta.annotation.security.PermitAll;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 @Layout
+@PermitAll
 public class RootLayout extends AppLayout {
 
-    public RootLayout(ToolkitProperties toolkitProperties, ConfigurableCamundaEngineProvider engineProvider) {
-        addToNavbar(getTopNavigation(engineProvider, toolkitProperties.getEngines()));
+    public RootLayout(AuthenticationContext authenticationContext, ToolkitProperties toolkitProperties, ConfigurableCamundaEngineProvider engineProvider) {
+        addToNavbar(getTopNavigation(authenticationContext, engineProvider, toolkitProperties.getEngines()));
 
         addToDrawer(getSideNavigation());
 
         setPrimarySection(Section.DRAWER);
     }
 
-    protected HorizontalLayout getTopNavigation(ConfigurableCamundaEngineProvider engineProvider, List<RemoteCamundaEngine> engines) {
-        HorizontalLayout layout = new HorizontalLayout();
-        layout.setPadding(true);
-        layout.setJustifyContentMode(FlexComponent.JustifyContentMode.BETWEEN);
+    protected HorizontalLayout getTopNavigation(AuthenticationContext authenticationContext, ConfigurableCamundaEngineProvider engineProvider, List<RemoteCamundaEngine> engines) {
+        HorizontalLayout rightSide = new HorizontalLayout();
 
         ComboBox<RemoteCamundaEngine> engineChooser = new ComboBox<>(event -> {
             RemoteCamundaEngine nextEngine = event.getValue();
@@ -49,11 +53,19 @@ public class RootLayout extends AppLayout {
         engineChooser.setItemLabelGenerator(RemoteCamundaEngine::getName);
         engineChooser.setItems(engines);
         engineChooser.setValue(engineProvider.provide());
+        rightSide.add(engineChooser);
 
+        if (authenticationContext.isAuthenticated()) {
+            Button logoutButton = new Button(VaadinIcon.EXIT.create());
+            logoutButton.addClickListener(event -> authenticationContext.logout());
+            rightSide.add(logoutButton);
+        }
+
+        HorizontalLayout layout = new HorizontalLayout();
+        layout.setPadding(true);
         layout.add(new DrawerToggle());
         layout.addAndExpand(new HorizontalLayout());
-        layout.add(engineChooser);
-
+        layout.add(rightSide);
         return layout;
     }
 

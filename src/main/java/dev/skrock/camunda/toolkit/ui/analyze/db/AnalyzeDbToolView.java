@@ -30,7 +30,9 @@ import dev.skrock.camunda.toolkit.api.ProcessDefinitionService;
 import dev.skrock.camunda.toolkit.model.CalledDbQuery;
 import dev.skrock.camunda.toolkit.model.ProcessDefinition;
 import dev.skrock.camunda.toolkit.model.ProcessDefinitionModel;
+import dev.skrock.camunda.toolkit.ui.Roles;
 import dev.skrock.camunda.toolkit.util.ResponseException;
+import jakarta.annotation.security.RolesAllowed;
 
 /**
  * <Beschreibung>
@@ -39,6 +41,7 @@ import dev.skrock.camunda.toolkit.util.ResponseException;
  * @author askrock
  */
 @Route("/tools/analyze/db")
+@RolesAllowed(Roles.ANALYZE_ROLE)
 public class AnalyzeDbToolView extends VerticalLayout {
 
     @Autowired

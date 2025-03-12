@@ -7,7 +7,6 @@ import dev.skrock.camunda.toolkit.util.ResponseException;
 import dev.skrock.camunda.toolkit.util.ResponseUtil;
 import org.camunda.community.rest.client.api.ProcessDefinitionApi;
 import org.camunda.community.rest.client.model.CalledProcessDefinitionDto;
-import org.camunda.community.rest.client.model.DeploymentWithDefinitionsDto;
 import org.camunda.community.rest.client.model.ProcessDefinitionDiagramDto;
 import org.camunda.community.rest.client.model.ProcessDefinitionDto;
 import org.springframework.beans.factory.annotation.Autowired;

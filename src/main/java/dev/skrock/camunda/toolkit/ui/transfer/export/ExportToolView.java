@@ -21,7 +21,9 @@ import com.vaadin.flow.data.binder.ValidationException;
 import com.vaadin.flow.router.Route;
 import dev.skrock.camunda.toolkit.api.ProcessDefinitionService;
 import dev.skrock.camunda.toolkit.model.ProcessDefinition;
+import dev.skrock.camunda.toolkit.ui.Roles;
 import dev.skrock.camunda.toolkit.util.ResponseException;
+import jakarta.annotation.security.RolesAllowed;
 
 import java.util.Collections;
 import java.util.Set;
@@ -33,6 +35,7 @@ import java.util.Set;
  * @author askrock
  */
 @Route("/tools/export")
+@RolesAllowed(Roles.DATA_TRANSFER_ROLE)
 public class ExportToolView extends VerticalLayout {
 
     public ExportToolView(ProcessDefinitionService processDefinitionService) {

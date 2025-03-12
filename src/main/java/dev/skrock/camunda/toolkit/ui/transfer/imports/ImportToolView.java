@@ -8,7 +8,10 @@ import com.vaadin.flow.component.upload.receivers.MultiFileMemoryBuffer;
 import com.vaadin.flow.router.Route;
 import dev.skrock.camunda.toolkit.api.DeploymentService;
 import dev.skrock.camunda.toolkit.model.ProcessDefinition;
+import dev.skrock.camunda.toolkit.ui.Roles;
 import dev.skrock.camunda.toolkit.util.ResponseException;
+import jakarta.annotation.security.RolesAllowed;
+
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
@@ -20,6 +23,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 @Route("/tools/import")
+@RolesAllowed(Roles.DATA_TRANSFER_ROLE)
 public class ImportToolView extends VerticalLayout {
 
     private static final ObjectMapper MAPPER = new ObjectMapper();

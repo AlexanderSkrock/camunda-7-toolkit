@@ -6,13 +6,17 @@ import com.vaadin.flow.data.binder.ValidationException;
 import com.vaadin.flow.router.Route;
 import dev.skrock.camunda.toolkit.api.VariablesService;
 import dev.skrock.camunda.toolkit.model.VariableInstance;
+import dev.skrock.camunda.toolkit.ui.Roles;
 import dev.skrock.camunda.toolkit.util.ResponseException;
+import jakarta.annotation.security.RolesAllowed;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Collections;
 import java.util.List;
 
 @Route("/tools/analyze/variables")
+@RolesAllowed(Roles.ANALYZE_ROLE)
 public class AnalyzeVariablesToolView extends VerticalLayout {
 
     @Autowired

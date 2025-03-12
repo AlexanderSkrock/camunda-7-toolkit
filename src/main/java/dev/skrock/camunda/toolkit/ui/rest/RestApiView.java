@@ -11,12 +11,16 @@ import de.f0rce.ace.enums.AceMode;
 import de.f0rce.ace.enums.AceTheme;
 import dev.skrock.camunda.toolkit.api.CamundaRestApiProvider;
 import dev.skrock.camunda.toolkit.rest.RestApiMethod;
+import dev.skrock.camunda.toolkit.ui.Roles;
+import jakarta.annotation.security.RolesAllowed;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Collection;
 import java.util.List;
 
 @Route("/rest")
+@RolesAllowed(Roles.REST_ROLE)
 public class RestApiView extends VerticalLayout {
 
     private static final ObjectMapper MAPPER = new ObjectMapper();
