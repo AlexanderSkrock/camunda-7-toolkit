@@ -5,13 +5,14 @@ import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
+import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.icon.VaadinIcon;
-import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.Scroller;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.sidenav.SideNav;
 import com.vaadin.flow.component.sidenav.SideNavItem;
+import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Layout;
 import com.vaadin.flow.spring.security.AuthenticationContext;
 import com.vaadin.flow.theme.lumo.LumoUtility;
@@ -28,8 +29,10 @@ import dev.skrock.camunda.toolkit.ui.transfer.imports.ImportToolView;
 import jakarta.annotation.security.PermitAll;
 
 import java.util.List;
+import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.security.web.authentication.switchuser.SwitchUserGrantedAuthority;
 
 @Layout
 @PermitAll
@@ -56,6 +59,31 @@ public class RootLayout extends AppLayout {
         rightSide.add(engineChooser);
 
         if (authenticationContext.isAuthenticated()) {
+            Optional<SwitchUserGrantedAuthority> impersonationAuthority = authenticationContext.getGrantedAuthorities()
+                    .stream()
+                    .filter(SwitchUserGrantedAuthority.class::isInstance)
+                    .map(SwitchUserGrantedAuthority.class::cast)
+                    .findFirst();
+
+            if (impersonationAuthority.isPresent()) {
+                Button impersonationButton = new Button(VaadinIcon.GLASSES.create(), e -> {
+                    e.getSource().getUI().ifPresent(ui -> ui.getPage().setLocation("/impersonate/exit"));
+                });
+                rightSide.add(impersonationButton);
+            } else if (authenticationContext.hasRole(Roles.ADMIN_ROLE)) {
+                Dialog impersonationDialog = new Dialog();
+                TextField userField = new TextField("Username");
+                Button doImpersonateButton = new Button("Impersonate", submitEvent -> {
+                    if (StringUtils.isNotBlank(userField.getValue())) {
+                        impersonationDialog.close();
+                        submitEvent.getSource().getUI().ifPresent(ui -> ui.getPage().setLocation("/impersonate?username=" + userField.getValue()));
+                    }
+                });
+                impersonationDialog.add(userField, doImpersonateButton);
+                Button exitImpersonationButton = new Button(VaadinIcon.GLASSES.create(), e -> impersonationDialog.open());
+                rightSide.add(exitImpersonationButton, impersonationDialog);
+            }
+
             Button logoutButton = new Button(VaadinIcon.EXIT.create());
             logoutButton.addClickListener(event -> authenticationContext.logout());
             rightSide.add(logoutButton);
