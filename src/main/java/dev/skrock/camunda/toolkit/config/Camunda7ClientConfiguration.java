@@ -3,6 +3,7 @@ package dev.skrock.camunda.toolkit.config;
 import dev.skrock.camunda.toolkit.engine.ConfigurableCamundaEngineProvider;
 import dev.skrock.camunda.toolkit.engine.RemoteCamundaEngine;
 import feign.RequestInterceptor;
+import feign.RequestTemplate;
 import feign.auth.BasicAuthRequestInterceptor;
 import org.camunda.community.rest.client.EnableCamundaFeignClients;
 import org.springframework.context.annotation.Bean;
@@ -34,7 +35,13 @@ public class Camunda7ClientConfiguration {
             Class<?> sourceClass = requestTemplate.feignTarget().type();
             if (Objects.equals(sourceClass.getPackage().getName(), CAMUNDA_REST_CLIENTS_PACKAGE.getName())) {
                 RemoteCamundaEngine engine = engineProvider.provide();
-                new BasicAuthRequestInterceptor(engine.getUsername(), engine.getPassword()).apply(requestTemplate);
+                new BasicAuthRequestInterceptor(engine.getUsername(), engine.getPassword()) {
+                    @Override
+                    public void apply(RequestTemplate template) {
+                        template.removeHeader("Authorization");
+                        super.apply(template);
+                    }
+                }.apply(requestTemplate);
             }
         };
     }
